@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Support Me — independent maps, research and geographic projects.">
+  <title>Support Me</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0b1218; --panel:#121e27; --line:#263743; --muted:#9aabb5; --text:#edf4f5; --accent:#8cc8c0; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--text); font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;
+      background: radial-gradient(ellipse at 50% -15%, #25434b 0, transparent 48%), var(--bg); }
+    .wrap { width:min(920px, calc(100% - 32px)); margin:0 auto; padding:58px 0 36px; }
+    header { text-align:center; margin-bottom:34px; }
+    .eyebrow { color:var(--accent); letter-spacing:.22em; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+    h1 { margin:9px 0 8px; font-size:clamp(2.5rem,8vw,4.5rem); line-height:1.05; letter-spacing:-.055em; }
+    .intro { max-width:620px; margin:0 auto; color:var(--muted); font-size:1.04rem; }
+    .map-art { height:155px; margin:28px auto 0; max-width:680px; border:1px solid var(--line); border-radius:18px; overflow:hidden;
+      background:
+      repeating-radial-gradient(ellipse at 18% 80%, transparent 0 22px, #91bcb51c 23px 24px, transparent 25px 43px),
+      repeating-radial-gradient(ellipse at 78% 25%, transparent 0 28px, #91bcb51c 29px 30px, transparent 31px 52px),
+      linear-gradient(120deg,#152b32,#101b25 65%,#1c3439); position:relative; }
+    .map-art:after { content:""; position:absolute; inset:0; opacity:.32; background-image:linear-gradient(30deg,transparent 49.7%,#a7c9c21f 50%,transparent 50.3%),linear-gradient(120deg,transparent 49.7%,#a7c9c21a 50%,transparent 50.3%); background-size:52px 52px; }
+    .section-title { text-align:center; margin:38px 0 18px; font-size:1.35rem; }
+    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .card { background:linear-gradient(145deg,#172630,#101a22); border:1px solid var(--line); border-radius:18px; padding:22px; text-align:center; }
+    .network { color:var(--accent); font-size:.72rem; letter-spacing:.15em; font-weight:800; }
+    h2 { margin:4px 0 2px; font-size:1.5rem; }
+    .token { color:var(--muted); margin:0 0 16px; font-size:.9rem; }
+    .qr { width:180px; max-width:100%; padding:9px; background:#fff; border-radius:10px; display:block; margin:0 auto 16px; }
+    .address-label { color:var(--muted); font-size:.75rem; text-align:left; margin-bottom:5px; }
+    .address { overflow-wrap:anywhere; text-align:left; font: .78rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; background:#0b141b; border:1px solid var(--line); border-radius:9px; padding:11px; min-height:62px; }
+    button { margin-top:10px; width:100%; border:1px solid #5f9992; background:#23433f; color:#effaf7; padding:11px 14px; border-radius:9px; font:600 .92rem system-ui; cursor:pointer; }
+    button:hover { background:#2d5751; }
+    .note { color:var(--muted); font-size:.82rem; max-width:680px; text-align:center; margin:22px auto 0; }
+    footer { border-top:1px solid var(--line); margin-top:42px; padding-top:20px; text-align:center; color:#71838d; font-size:.78rem; }
+    @media(max-width:620px) { .wrap{padding-top:38px}.cards{grid-template-columns:1fr}.map-art{height:115px}.card{padding:19px} }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Independent creator · Mapping & research</div>
+      <h1>Support Me</h1>
+      <p class="intro">If you enjoy the maps and research I share, you can support my work with a direct USDT contribution. Every contribution is appreciated.</p>
+      <div class="map-art" role="img" aria-label="Abstract topographic map pattern"></div>
+    </header>
+
+    <h2 class="section-title">Choose your USDT network</h2>
+    <section class="cards" aria-label="USDT donation networks">
+      <article class="card">
+        <div class="network">TON BLOCKCHAIN</div>
+        <h2>TON</h2>
+        <p class="token">USDT · TON network</p>
+        <img class="qr" src="ton-qr.png" alt="QR code for USDT on TON">
+        <div class="address-label">TON wallet address</div>
+        <div class="address" id="ton-address">UQD-8JXP4KI1WVv6wroiOU_xLt7fF2O_ksOeF0aZ9jEhS12f</div>
+        <button type="button" onclick="copyAddress('ton-address', this)">Copy TON address</button>
+      </article>
+
+      <article class="card">
+        <div class="network">TRON BLOCKCHAIN</div>
+        <h2>TRC20</h2>
+        <p class="token">USDT · TRON network</p>
+        <img class="qr" src="trc20-qr.png" alt="QR code for USDT on TRON TRC20">
+        <div class="address-label">TRON wallet address</div>
+        <div class="address" id="trc20-address">TWCS24FkmQZ9KiKUxjNEnD9LaJNao87tKr</div>
+        <button type="button" onclick="copyAddress('trc20-address', this)">Copy TRC20 address</button>
+      </article>
+    </section>
+
+    <p class="note"><strong>Important:</strong> Send USDT only through the network shown for the selected address. TON and TRC20 addresses are not interchangeable. Please verify the network before confirming a transfer.</p>
+    <footer>Thank you for supporting independent mapping and research.</footer>
+  </main>
+  <script>
+    async function copyAddress(id, button) {
+      const value = document.getElementById(id).textContent.trim();
+      try {
+        await navigator.clipboard.writeText(value);
+        const old = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = old, 1600);
+      } catch (e) {
+        window.prompt('Copy this wallet address:', value);
+      }
+    }
+  </script>
+</body>
+</html>
