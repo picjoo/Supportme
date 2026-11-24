@@ -22,6 +22,13 @@
       repeating-radial-gradient(ellipse at 78% 25%, transparent 0 28px, #91bcb51c 29px 30px, transparent 31px 52px),
       linear-gradient(120deg,#152b32,#101b25 65%,#1c3439); position:relative; }
     .map-art:after { content:""; position:absolute; inset:0; opacity:.32; background-image:linear-gradient(30deg,transparent 49.7%,#a7c9c21f 50%,transparent 50.3%),linear-gradient(120deg,transparent 49.7%,#a7c9c21a 50%,transparent 50.3%); background-size:52px 52px; }
+    .profile-link { display:flex; align-items:center; justify-content:center; color:var(--text); text-decoration:none; transition:border-color .2s, transform .2s; }
+    .profile-link:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .profile-link-content { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:16px; text-align:center; }
+    .profile-link-kicker { color:var(--accent); font-size:.68rem; font-weight:800; letter-spacing:.2em; }
+    .profile-link-content strong { font-size:clamp(1.35rem,4vw,1.9rem); letter-spacing:-.03em; }
+    .profile-link-subtitle { color:var(--muted); font-size:.86rem; }
+    .profile-link-cta { margin-top:7px; color:var(--accent); font-size:.82rem; font-weight:700; }
     .section-title { text-align:center; margin:38px 0 18px; font-size:1.35rem; }
     .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
     .card { background:linear-gradient(145deg,#172630,#101a22); border:1px solid var(--line); border-radius:18px; padding:22px; text-align:center; }
@@ -44,7 +51,16 @@
       <div class="eyebrow">Independent creator · Mapping & research</div>
       <h1>Support Me</h1>
       <p class="intro">If you enjoy the maps and research I share, you can support my work with a direct USDT contribution. Every contribution is appreciated.</p>
-      <div class="map-art" role="img" aria-label="Abstract topographic map pattern"></div>
+      <a class="map-art profile-link" href="https://soaratlas.com/profile/Nikatlas"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Visit my Soar Atlas profile">
+        <span class="profile-link-content">
+          <span class="profile-link-kicker">SOAR ATLAS PROFILE</span>
+          <strong>Explore My Maps</strong>
+          <span class="profile-link-subtitle">View my profile and latest posts</span>
+          <span class="profile-link-cta">Visit profile <span aria-hidden="true">↗</span></span>
+        </span>
+      </a>
     </header>
 
     <h2 class="section-title">Choose your USDT network</h2>
