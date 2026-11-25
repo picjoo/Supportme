@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101820">
-  <meta name="description" content="Support Me — independent maps, research and geographic projects.">
+  <meta name="description" content="Support Me — independent maps, research and geographic projects. Pick an amount and pay USDT straight from your wallet.">
   <title>Support Me</title>
   <style>
     :root { color-scheme: dark; --bg:#0b1218; --panel:#121e27; --line:#263743; --muted:#9aabb5; --text:#edf4f5; --accent:#8cc8c0; }
@@ -29,7 +29,25 @@
     .profile-link-content strong { font-size:clamp(1.35rem,4vw,1.9rem); letter-spacing:-.03em; }
     .profile-link-subtitle { color:var(--muted); font-size:.86rem; }
     .profile-link-cta { margin-top:7px; color:var(--accent); font-size:.82rem; font-weight:700; }
-    .section-title { text-align:center; margin:38px 0 18px; font-size:1.35rem; }
+    .section-title { text-align:center; margin:38px 0 8px; font-size:1.35rem; }
+    .section-sub { color:var(--muted); text-align:center; margin:0 0 18px; font-size:.92rem; }
+    .amounts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; max-width:680px; margin:0 auto 10px; }
+    .amount-card { background:linear-gradient(145deg,#172630,#101a22); border:1px solid var(--line); border-radius:18px; padding:20px 18px 18px; text-align:center; cursor:pointer; transition:border-color .15s, background .15s, box-shadow .15s; }
+    .amount-card:hover { border-color:#3a5a66; }
+    .amount-card:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+    .amount-card.selected { border-color:var(--accent); background:linear-gradient(145deg,#1b3238,#12212a); box-shadow:0 0 0 1px var(--accent) inset; }
+    .amount-emoji { font-size:1.5rem; line-height:1; display:block; }
+    .amount-label { display:block; margin-top:8px; font-size:.98rem; font-weight:600; }
+    .amount-price { display:block; margin-top:3px; color:var(--accent); font-size:1.28rem; font-weight:800; letter-spacing:-.02em; }
+    .custom-wrap { grid-column:1 / -1; }
+    .custom-card { background:linear-gradient(145deg,#172630,#101a22); border:1px solid var(--line); border-radius:14px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; cursor:pointer; transition:border-color .15s, box-shadow .15s; }
+    .custom-card:focus-within { outline:2px solid var(--accent); outline-offset:2px; }
+    .custom-card.selected { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
+    .custom-emoji { font-size:1.4rem; }
+    .custom-card label { color:var(--muted); font-size:.86rem; white-space:nowrap; }
+    .custom-card input { flex:1 1 140px; min-width:0; background:#0b141b; border:1px solid var(--line); color:var(--text); border-radius:9px; padding:10px 12px; font:600 1rem system-ui; outline:none; }
+    .custom-card input:focus { border-color:var(--accent); }
+    .custom-hint { flex-basis:100%; text-align:center; color:#71838d; font-size:.75rem; margin:0; }
     .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
     .card { background:linear-gradient(145deg,#172630,#101a22); border:1px solid var(--line); border-radius:18px; padding:22px; text-align:center; }
     .network { color:var(--accent); font-size:.72rem; letter-spacing:.15em; font-weight:800; }
@@ -40,17 +58,38 @@
     .address { overflow-wrap:anywhere; text-align:left; font: .78rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; background:#0b141b; border:1px solid var(--line); border-radius:9px; padding:11px; min-height:62px; }
     button { margin-top:10px; width:100%; border:1px solid #5f9992; background:#23433f; color:#effaf7; padding:11px 14px; border-radius:9px; font:600 .92rem system-ui; cursor:pointer; }
     button:hover { background:#2d5751; }
+    .pay-btn { background:#2e6f67; border-color:#7ec2ba; font-weight:700; }
+    .pay-btn:hover { background:#358077; }
+    .pay-btn:disabled { opacity:.55; cursor:not-allowed; }
+    .pay-note { color:var(--muted); font-size:.78rem; margin:8px 0 0; text-align:center; }
+    .connect-slot { margin:14px 0 2px; padding-top:14px; border-top:1px dashed var(--line); }
+    .connect-slot .connect-label { color:var(--muted); font-size:.75rem; margin-bottom:8px; }
+    #ton-connect-btn { min-height:44px; display:flex; justify-content:center; }
+    .wallet-choices { margin:12px 0 2px; padding-top:12px; border-top:1px dashed var(--line); }
+    .wallet-choices[hidden] { display:none; }
+    .wallet-choices-label { color:var(--muted); font-size:.78rem; margin-bottom:8px; text-align:center; }
+    .wallet-choice-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    a.choice-btn { display:block; padding:9px 10px; font-size:.85rem; background:#1a2c36; border:1px solid #3a5560; border-radius:9px; color:#effaf7; font-weight:600; text-decoration:none; text-align:center; }
+    a.choice-btn:hover { background:#24404c; }
+    .choice-wide { grid-column:1 / -1; }
+    .tg-hint { color:#71838d; font-size:.72rem; margin:8px 0 0; text-align:center; }
+    .status { margin:14px auto 0; max-width:680px; text-align:center; padding:11px 14px; border-radius:10px; font-size:.9rem; display:none; }
+    .status:empty { display:none !important; }
+    .status.ok { display:block; border:1px solid #3c6a63; background:#132e29; color:#b6e0d8; overflow-wrap:anywhere; }
+    .status.err { display:block; border:1px solid #6a3c3c; background:#2e1313; color:#e0b6b6; overflow-wrap:anywhere; }
+    .status a { color:var(--accent); }
     .note { color:var(--muted); font-size:.82rem; max-width:680px; text-align:center; margin:22px auto 0; }
     footer { border-top:1px solid var(--line); margin-top:42px; padding-top:20px; text-align:center; color:#71838d; font-size:.78rem; }
     @media(max-width:620px) { .wrap{padding-top:38px}.cards{grid-template-columns:1fr}.map-art{height:115px}.card{padding:19px} }
+    @media(max-width:520px) { .amounts{grid-template-columns:1fr} .custom-card{flex-wrap:nowrap} .custom-card label{display:none} }
   </style>
 </head>
 <body>
   <main class="wrap">
     <header>
-      <div class="eyebrow">Independent creator · Mapping & research</div>
+      <div class="eyebrow">Independent creator · Mapping &amp; research</div>
       <h1>Support Me</h1>
-      <p class="intro">If you enjoy the maps and research I share, you can support my work with a direct USDT contribution. Every contribution is appreciated.</p>
+      <p class="intro">If you enjoy the maps and research I share, you can support my work with a direct USDT contribution. Pick an amount below and pay straight from your wallet — no address copy-pasting needed.</p>
       <a class="map-art profile-link" href="https://soaratlas.com/profile/Nikatlas"
          target="_blank" rel="noopener noreferrer"
          aria-label="Visit my Soar Atlas profile">
@@ -63,7 +102,41 @@
       </a>
     </header>
 
-    <h2 class="section-title">Choose your USDT network</h2>
+    <h2 class="section-title">1 · Choose your support</h2>
+    <p class="section-sub">All tiers are one-off USDT contributions — pick one or set your own amount.</p>
+    <section class="amounts" aria-label="Donation amount">
+      <div class="amount-card" data-amount="3" tabindex="0" role="button" aria-pressed="false">
+        <span class="amount-emoji" aria-hidden="true">☕</span>
+        <span class="amount-label">Buy Me a Coffee</span>
+        <span class="amount-price">3 $</span>
+      </div>
+      <div class="amount-card" data-amount="5" tabindex="0" role="button" aria-pressed="false">
+        <span class="amount-emoji" aria-hidden="true">🗺️</span>
+        <span class="amount-label">Map Supporter</span>
+        <span class="amount-price">5 $</span>
+      </div>
+      <div class="amount-card" data-amount="10" tabindex="0" role="button" aria-pressed="false">
+        <span class="amount-emoji" aria-hidden="true">🧭</span>
+        <span class="amount-label">Fuel My Research</span>
+        <span class="amount-price">10 $</span>
+      </div>
+      <div class="amount-card" data-amount="20" tabindex="0" role="button" aria-pressed="false">
+        <span class="amount-emoji" aria-hidden="true">🌍</span>
+        <span class="amount-label">Explore Further</span>
+        <span class="amount-price">20 $</span>
+      </div>
+      <div class="custom-wrap">
+        <div class="custom-card" id="custom-card">
+          <span class="custom-emoji" aria-hidden="true">✨</span>
+          <label for="custom-amount">Custom Amount</label>
+          <input type="number" id="custom-amount" inputmode="decimal" min="1" step="0.01"
+                 placeholder="e.g. 7.50" onclick="event.stopPropagation()" oninput="onCustomInput()">
+        </div>
+        <p class="custom-hint">Enter any amount in USDT (minimum 1 $)</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">2 · Pick your USDT network</h2>
     <section class="cards" aria-label="USDT donation networks">
       <article class="card">
         <div class="network">TON BLOCKCHAIN</div>
@@ -72,6 +145,21 @@
         <img class="qr" src="ton-qr.png" alt="QR code for USDT on TON">
         <div class="address-label">TON wallet address</div>
         <div class="address" id="ton-address">UQD-8JXP4KI1WVv6wroiOU_xLt7fF2O_ksOeF0aZ9jEhS12f</div>
+        <button type="button" class="pay-btn" id="ton-pay" onclick="payTon()" disabled>⚡ Pay USDT from wallet</button>
+        <p class="pay-note">Choose your wallet below — the transfer opens there with the amount pre-filled. Telegram Money users: see the note under the wallet list.</p>
+        <div class="wallet-choices" id="wallet-choices" hidden>
+          <div class="wallet-choices-label">Open your <span id="wc-amount-label">3 $</span> USDT transfer in:</div>
+          <div class="wallet-choice-grid">
+            <a class="choice-btn" id="wc-tonkeeper" href="#" title="Tonkeeper / Keeper app or extension">🛡️ Tonkeeper</a>
+            <a class="choice-btn" id="wc-mytonwallet" href="#" title="MyTonWallet app or extension">🅼 MyTonWallet</a>
+            <a class="choice-btn choice-wide" id="wc-other" href="#" title="Tonhub, OKX and other TON wallets">🌐 Other TON wallet</a>
+          </div>
+          <p class="tg-hint">💡 Telegram's built-in wallet can't open USDT (jetton) links. If you keep your USDT in Telegram Wallet: open Telegram → Wallet → Send → paste the address above manually (Copy button), asset <b>USDT</b>, amount <b><span id="tg-amount-label">3</span></b>.</p>
+        </div>
+        <div class="connect-slot">
+          <div class="connect-label">Connect a TON wallet to sign right here:</div>
+          <div id="ton-connect-btn"></div>
+        </div>
         <button type="button" onclick="copyAddress('ton-address', this)">Copy TON address</button>
       </article>
 
@@ -82,14 +170,97 @@
         <img class="qr" src="trc20-qr.png" alt="QR code for USDT on TRON TRC20">
         <div class="address-label">TRON wallet address</div>
         <div class="address" id="trc20-address">TWCS24FkmQZ9KiKUxjNEnD9LaJNao87tKr</div>
+        <button type="button" class="pay-btn" id="trc20-pay" onclick="payTrc20()" disabled>⚡ Pay USDT from wallet</button>
+        <p class="pay-note">Uses the TronLink browser wallet — review the request in the extension and confirm, without leaving this page. A little TRX or energy in your wallet is needed for network fees.</p>
         <button type="button" onclick="copyAddress('trc20-address', this)">Copy TRC20 address</button>
       </article>
     </section>
 
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+
     <p class="note"><strong>Important:</strong> Send USDT only through the network shown for the selected address. TON and TRC20 addresses are not interchangeable. Please verify the network before confirming a transfer.</p>
     <footer>Thank you for supporting independent mapping and research.</footer>
   </main>
+
+  <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
   <script>
+    // ---------- configuration ----------
+    const DONATE = {
+      tonAddress: 'UQD-8JXP4KI1WVv6wroiOU_xLt7fF2O_ksOeF0aZ9jEhS12f',
+      trc20Address: 'TWCS24FkmQZ9KiKUxjNEnD9LaJNao87tKr',
+      tonUsdtMaster: 'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs',  // USDT jetton master on TON mainnet
+      trc20UsdtContract: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',            // USDT TRC20 contract on TRON mainnet
+      usdtDecimals: 6                                                       // USDT uses 6 decimals on both networks
+    };
+    const TON_CORE_CDN = 'https://cdn.jsdelivr.net/npm/@ton/core@0.57.0/+esm';
+    const TON_GAS_NANOTONS = '50000000'; // 0.05 TON attached to the jetton transfer for gas
+
+    // ---------- amount selector ----------
+    let selectedAmount = null;
+    const amountCards = Array.from(document.querySelectorAll('.amount-card'));
+    const customCard = document.getElementById('custom-card');
+    const customInput = document.getElementById('custom-amount');
+
+    amountCards.forEach(card => {
+      const pick = () => selectAmount(parseFloat(card.dataset.amount));
+      card.addEventListener('click', pick);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    });
+
+    function clearSelection() {
+      amountCards.forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
+      customCard.classList.remove('selected');
+    }
+
+    function selectAmount(v) {
+      clearSelection();
+      selectedAmount = v;
+      const card = amountCards.find(c => parseFloat(c.dataset.amount) === v);
+      if (card) { card.classList.add('selected'); card.setAttribute('aria-pressed', 'true'); }
+      customInput.value = '';
+      updatePayButtons();
+    }
+
+    function onCustomInput() {
+      clearSelection();
+      customCard.classList.add('selected');
+      selectedAmount = parseFloat(customInput.value);   // NaN while the field is empty
+      updatePayButtons();
+    }
+
+    function validAmount() {
+      return selectedAmount !== null && !isNaN(selectedAmount) && selectedAmount >= 1;
+    }
+
+    function updatePayButtons() {
+      const has = validAmount();
+      const label = has ? ('⚡ Pay ' + fmtUsd(selectedAmount) + ' · USDT') : '⚡ Pay USDT from wallet';
+      const ton = document.getElementById('ton-pay');
+      const trc = document.getElementById('trc20-pay');
+      ton.disabled = has ? false : true;
+      trc.disabled = has ? false : true;
+      ton.textContent = label;
+      trc.textContent = label;
+      // hide the wallet picker whenever the amount changes — its links would be stale
+      document.getElementById('wallet-choices').hidden = true;
+    }
+
+    function fmtUsd(v) { return (Number.isInteger(v) ? v : v.toFixed(2)) + ' $'; }
+
+    // ---------- status helper ----------
+    function showStatus(html, type) {
+      const el = document.getElementById('status');
+      el.className = 'status ' + type;
+      el.innerHTML = html;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function clearStatus() {
+      const el = document.getElementById('status');
+      el.className = 'status';
+      el.innerHTML = '';
+    }
+    function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
     async function copyAddress(id, button) {
       const value = document.getElementById(id).textContent.trim();
       try {
@@ -101,6 +272,202 @@
         window.prompt('Copy this wallet address:', value);
       }
     }
+
+    // ---------- TRC20 payment via TronLink ----------
+    function getTronProvider() {
+      if (typeof window.tron !== 'undefined' && window.tron && typeof window.tron.request === 'function') return window.tron;
+      if (typeof window.tronLink !== 'undefined' && window.tronLink && typeof window.tronLink.request === 'function') return window.tronLink;
+      return null;
+    }
+
+    async function getTronWeb(retries = 4) {
+      for (let i = 0; i < retries; i++) {
+        const tw = (typeof window.tron !== 'undefined' && window.tron.tronWeb) ? window.tron.tronWeb
+                : (typeof window.tronWeb !== 'undefined') ? window.tronWeb : null;
+        if (tw && tw.defaultAddress && tw.defaultAddress.base58) return tw;
+        await new Promise(r => setTimeout(r, 500));
+      }
+      return null;
+    }
+
+    async function payTrc20() {
+      if (!validAmount()) { showStatus('Please choose a support amount first (minimum 1 $).', 'err'); return; }
+      clearStatus();
+      const provider = getTronProvider();
+      if (!provider) {
+        showStatus('No TRON wallet detected in this browser. Install the <a href="https://www.tronlink.org/" target="_blank" rel="noopener noreferrer">TronLink</a> extension, or use the QR code / Copy address button above. On mobile, open this page inside the TronLink app browser.', 'err');
+        return;
+      }
+      const btn = document.getElementById('trc20-pay');
+      btn.disabled = true;
+      const oldLabel = btn.textContent;
+      btn.textContent = 'Connecting wallet…';
+      try {
+        // 1. ask the user to authorize this page (must run inside a click handler)
+        let res = null;
+        try {
+          res = await provider.request({
+            method: 'tron_requestAccounts',
+            params: { websiteName: 'Soar Atlas Support', websiteIcon: new URL('icon-180.png', location.href).href }
+          });
+        } catch (e) {
+          if (String(e && e.message || e).match(/reject|denied|cancel/i)) { throw new Error('cancelled'); }
+          throw e;
+        }
+        if (res && res.code === 4001) throw new Error('cancelled');
+
+        // 2. read the connected account
+        btn.textContent = 'Reading account…';
+        const tw = await getTronWeb();
+        if (!tw || !tw.defaultAddress || !tw.defaultAddress.base58) {
+          showStatus('TronLink is connected, but the account is not visible to the page yet. The page will reload in a moment — after that, choose your amount and press Pay again.', 'ok');
+          setTimeout(() => location.reload(), 1600);
+          return;
+        }
+        const from = tw.defaultAddress.base58;
+
+        // 3. USDT TRC20 transfer via the token contract (amount in base units, 10^-6)
+        btn.textContent = 'Confirm in wallet…';
+        const baseUnits = Math.round(selectedAmount * Math.pow(10, DONATE.usdtDecimals));
+        const contract = await tw.contract().at(DONATE.trc20UsdtContract);
+        const txID = await contract.transfer(DONATE.trc20Address, baseUnits).send({ feeLimit: 100000000, callValue: 0 });
+        showStatus('✅ Transaction broadcast — thank you for the ' + fmtUsd(selectedAmount) + ' support! 💚 Track it on <a href="https://tronscan.io/#/transaction/' + encodeURIComponent(txID) + '" target="_blank" rel="noopener noreferrer">Tronscan</a>. Sent from ' + esc(from) + '.', 'ok');
+      } catch (e) {
+        const msg = String(e && e.message || e);
+        if (msg === 'cancelled' || /reject|denied|cancel/i.test(msg)) showStatus('Request cancelled — nothing was sent.', 'err');
+        else showStatus('Payment could not be completed: ' + esc(msg) + ' — make sure the wallet is unlocked and holds a little TRX for fees, then try again.', 'err');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = oldLabel;
+        updatePayButtons();
+      }
+    }
+
+    // ---------- TON payment: TON Connect + ton:// deep-link fallback ----------
+    let tonConnectUI = null;
+
+    function initTonConnect() {
+      try {
+        if (typeof TON_CONNECT_UI === 'undefined') return;
+        tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: new URL('tonconnect-manifest.json', location.href).href,
+          buttonRootId: 'ton-connect-btn',
+          uiPreferences: { theme: 'DARK' }
+        });
+      } catch (e) { tonConnectUI = null; /* deep-link fallback still works */ }
+    }
+
+    function tonDeepLink(amount) {
+      const base = BigInt(Math.round(amount * Math.pow(10, DONATE.usdtDecimals)));
+      return 'ton://transfer/' + DONATE.tonAddress +
+             '?jetton=' + DONATE.tonUsdtMaster +
+             '&amount=' + base.toString() +
+             '&text=' + encodeURIComponent('Soar Atlas support');
+    }
+
+    // wallet-specific universal links (each wallet only reliably opens its own format):
+    // Tonkeeper/Keeper and MyTonWallet accept the jetton= transfer format; ton:// is the
+    // generic scheme for wallets like Tonhub. Telegram Money (Telegram's wallet) does NOT
+    // support jetton deep links — it gets manual instructions instead (see tg-hint).
+    function walletLinks(amount) {
+      const base = BigInt(Math.round(amount * Math.pow(10, DONATE.usdtDecimals))).toString();
+      const text = encodeURIComponent('Soar Atlas support');
+      return {
+        tonkeeper: 'https://app.tonkeeper.com/transfer/' + DONATE.tonAddress + '?jetton=' + DONATE.tonUsdtMaster + '&amount=' + base + '&text=' + text,
+        mytonwallet: 'https://my.tt/transfer/' + DONATE.tonAddress + '?jetton=' + DONATE.tonUsdtMaster + '&amount=' + base + '&text=' + text,
+        other: 'ton://transfer/' + DONATE.tonAddress + '?jetton=' + DONATE.tonUsdtMaster + '&amount=' + base + '&text=' + text
+      };
+    }
+
+    async function getUserJettonWallet(userAddress) {
+      const url = 'https://tonapi.io/v2/accounts/' + encodeURIComponent(userAddress) + '/jettons/' + DONATE.tonUsdtMaster;
+      const r = await fetch(url);
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.error) throw new Error('could not look up your USDT (TON) jetton wallet');
+      const wa = j.wallet_address;
+      const addr = typeof wa === 'string' ? wa : (wa && wa.address);
+      if (!addr) throw new Error('no USDT jetton wallet found for your address');
+      return addr;
+    }
+
+    async function payTon() {
+      if (!validAmount()) { showStatus('Please choose a support amount first (minimum 1 $).', 'err'); return; }
+      clearStatus();
+      if (tonConnectUI && tonConnectUI.connected) { await payTonConnect(selectedAmount); return; }
+      // no wallet connected -> show the wallet picker instead of firing one ton:// link
+      // (Telegram would grab the ton:// link and show "invalid address" for jettons)
+      openWalletPicker(selectedAmount);
+    }
+
+    function openWalletPicker(amount) {
+      const links = walletLinks(amount);
+      const box = document.getElementById('wallet-choices');
+      document.getElementById('wc-tonkeeper').href = links.tonkeeper;
+      document.getElementById('wc-mytonwallet').href = links.mytonwallet;
+      document.getElementById('wc-other').href = links.other;
+      document.getElementById('wc-amount-label').textContent = fmtUsd(amount);
+      document.getElementById('tg-amount-label').textContent = fmtUsd(amount);
+      box.hidden = false;
+      showStatus('Choose your TON wallet to open a pre-filled ' + fmtUsd(amount) + ' USDT transfer. Nothing installed? Use the QR code or Copy address above.', 'ok');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function openTonDeepLink(amount) {
+      const links = walletLinks(amount);
+      showStatus('Opening your TON wallet with a pre-filled ' + fmtUsd(amount) + ' USDT transfer… If nothing opened, pick your wallet: <a href="' + esc(links.tonkeeper) + '">Tonkeeper</a> · <a href="' + esc(links.mytonwallet) + '">MyTonWallet</a> — or scan the QR code above.', 'ok');
+      const a = document.createElement('a');
+      a.href = links.other;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    async function payTonConnect(amount) {
+      const btn = document.getElementById('ton-pay');
+      btn.disabled = true;
+      const oldLabel = btn.textContent;
+      btn.textContent = 'Confirm in wallet…';
+      try {
+        // build the TEP-74 jetton transfer body with @toncore from CDN
+        const toncore = await import(TON_CORE_CDN);
+        const base = BigInt(Math.round(amount * Math.pow(10, DONATE.usdtDecimals)));
+        const body = toncore.beginCell()
+          .storeUint(0x0f8a7ea5, 32)            // op: jetton transfer
+          .storeUint(0, 64)                      // query id
+          .storeCoins(base)                      // jetton amount (microUSDT)
+          .storeAddress(toncore.Address.parse(DONATE.tonAddress))  // recipient
+          .storeAddress(null)                     // response destination (none)
+          .storeBit(0)                           // custom payload (absent)
+          .storeCoins(BigInt(TON_GAS_NANOTONS))  // forward ton amount
+          .storeUint(0, 1)                       // forward payload (empty)
+          .endCell();
+        const payload = body.toBoc({ idx: false }).toString('base64');
+
+        // the message must go to the *sender's* jetton wallet, not the master contract
+        const userAddress = tonConnectUI.account.address;
+        btn.textContent = 'Preparing transfer…';
+        const jettonWallet = await getUserJettonWallet(userAddress);
+
+        const result = await tonConnectUI.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 600,
+          network: '-239',   // TON mainnet
+          messages: [{ address: jettonWallet, amount: TON_GAS_NANOTONS, payload: payload }]
+        });
+        showStatus('✅ USDT transfer signed and sent — thank you for the ' + fmtUsd(amount) + ' support! 💚 You can verify it in your wallet app or on <a href="https://tonviewer.com/address/' + encodeURIComponent(DONATE.tonAddress) + '" target="_blank" rel="noopener noreferrer">tonviewer</a>.', 'ok');
+      } catch (e) {
+        const msg = String(e && e.message || e);
+        if (/reject|cancel|aborted|300/i.test(msg)) showStatus('Request cancelled — nothing was sent.', 'err');
+        else showStatus('Wallet payment could not be completed: ' + esc(msg) + '. You can still pay by picking your wallet app:', 'err');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = oldLabel;
+        updatePayButtons();
+      }
+    }
+
+    // ---------- init ----------
+    initTonConnect();
+    updatePayButtons();
   </script>
 </body>
 </html>
